@@ -37,4 +37,16 @@ public class CampusStudentResource {
         student.persist();
         return Response.status(Response.Status.CREATED).entity(student).build();
     }
+
+    @POST
+    @Path("/login")
+    public Response loginStudent(Student loginData) {
+        Student foundStudent = Student.find("name = ?1 and studentId = ?2", loginData.name, loginData.studentId).firstResult();
+
+        if (foundStudent != null) {
+            return Response.ok(foundStudent).build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("İsim veya öğrenci numarası hatalı!").build();
+        }
+    }
 }
