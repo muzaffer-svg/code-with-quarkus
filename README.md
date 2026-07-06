@@ -49,7 +49,7 @@ Projeyi kendi bilgisayarında çalıştırmak için aşağıdaki adımları izle
 2. Proje dizinine gidin:
 
    ```bash
-   cd campus-portal
+   cd code-with-quarkus
    ```
 
 3. Quarkus geliştirici modunda uygulamayı başlatın:
