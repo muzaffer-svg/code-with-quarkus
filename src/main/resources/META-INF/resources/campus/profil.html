@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Profilim - AYBÜ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .portal-card { background: rgba(255, 255, 255, 0.95); padding: 50px 40px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; max-width: 420px; width: 100%; }
+        h1 { color: #1e3c72; margin: 0 0 12px 0; }
+        .alert { padding: 15px; border-radius: 8px; margin-top: 20px; font-weight: 600; display: none; }
+        .alert-success { background: #d4edda; color: #155724; }
+        .alert-danger { background: #f8d7da; color: #721c24; }
+        .btn-container { margin-top: 30px; display: flex; gap: 10px; justify-content: center; }
+        .btn-logout { padding: 10px 20px; background: #e74c3c; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .btn-back { padding: 10px 20px; background: #e0e0e0; color: #333; text-decoration: none; border-radius: 8px; font-weight: 600;}
+    </style>
+</head>
+<body>
+    <div class="portal-card">
+        <h1>Öğrenci Profili</h1>
+        
+        <div id="sonucKutusu" class="alert">Bilgiler yükleniyor...</div>
+
+        <div class="btn-container">
+            <a href="index.html" class="btn-back">Ana Sayfa</a>
+            <button onclick="cikisYap()" class="btn-logout">Çıkış Yap</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sonucKutusu = document.getElementById('sonucKutusu');
+            const token = localStorage.getItem('jwt_token');
+
+            if (!token) {
+                sonucKutusu.style.display = 'block';
+                sonucKutusu.className = 'alert alert-danger';
+                sonucKutusu.innerHTML = 'Giriş yapmamışsınız! Lütfen önce giriş yapın.';
+                return;
+            }
+
+            fetch('http://localhost:8080/api/studentss/profil', {
+                method: 'GET',
+                headers: { 'Authorization': 'Bearer ' + token }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Yetkiniz yok veya oturum süreniz dolmuş!');
+                return response.text(); 
+            })
+            .then(data => {
+                sonucKutusu.style.display = 'block';
+                sonucKutusu.className = 'alert alert-success';
+                sonucKutusu.innerHTML = data; 
+            })
+            .catch(error => {
+                sonucKutusu.style.display = 'block';
+                sonucKutusu.className = 'alert alert-danger';
+                sonucKutusu.innerHTML = error.message;
+            });
+        });
+
+        function cikisYap() {
+            localStorage.removeItem('jwt_token');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
