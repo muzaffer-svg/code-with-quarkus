@@ -45,13 +45,4 @@ nb-configuration.xml
 .certs/
 
 
-# Özel dosyalarımı yoksay
-api.http
-Dockerfile.jvm
-Dockerfile.native
-Dockerfile.native-micro
-Dockerfile.legacy-jar
-GreetingResource.java
-GreetingResourceTest.java
-GreetingResourceIT.java
-.dockerignore
+
