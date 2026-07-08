@@ -5,120 +5,21 @@
     <title>AYBÜ Kampüs Portalı</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        
-        .portal-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 50px 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            text-align: center;
-            max-width: 420px;
-            width: 100%;
-            backdrop-filter: blur(10px);
-        }
-        
-        .university-icon {
-            width: 75px;
-            height: 75px;
-            fill: #1e3c72;
-            margin-bottom: 20px;
-        }
-        
-        h1 {
-            color: #1e3c72;
-            margin: 0 0 12px 0;
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-        
-        p {
-            color: #5a6a85;
-            margin-bottom: 35px;
-            font-size: 15px;
-            line-height: 1.5;
-        }
-        
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 16px;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        
-        .btn-icon {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-        
-        /* Yeni Eklenen: Giriş Butonu Stili (Mor Tonları) */
-        .btn-login {
-            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
-            box-shadow: 0 6px 15px rgba(142, 68, 173, 0.3);
-        }
-
-        .btn-student {
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
-        }
-        
-        .btn-staff {
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-            box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
-        }
-        
-        .btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.25);
-        }
-        
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        /* Ayırıcı Çizgi Stili */
-        .divider {
-            margin: 25px 0;
-            border-bottom: 1px solid #dfe6e9;
-            position: relative;
-        }
-        .divider span {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            padding: 0 15px;
-            color: #95a5a6;
-            font-size: 13px;
-        }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .portal-card { background: rgba(255, 255, 255, 0.95); padding: 50px 40px; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center; max-width: 420px; width: 100%; }
+        .university-icon { width: 75px; height: 75px; fill: #1e3c72; margin-bottom: 20px; }
+        h1 { color: #1e3c72; margin: 0 0 12px 0; font-size: 28px; font-weight: 800; }
+        p { color: #5a6a85; margin-bottom: 35px; font-size: 15px; }
+        .btn-container { display: flex; flex-direction: column; gap: 16px; }
+        .btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 16px; border: none; border-radius: 12px; color: white; font-size: 16px; text-decoration: none; font-weight: 600; cursor: pointer; transition: all 0.3s; box-sizing: border-box; }
+        .btn-icon { width: 24px; height: 24px; fill: white; }
+        .btn-login { background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%); }
+        .btn-student { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+        .btn-staff { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); }
+        .btn-profile { background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); display: none; /* Varsayılan olarak gizli */ }
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 12px 20px rgba(0,0,0,0.25); }
+        .divider { margin: 20px 0; border-bottom: 1px solid #dfe6e9; position: relative; }
+        .divider span { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 15px; color: #95a5a6; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -128,36 +29,41 @@
         </svg>
         
         <h1>AYBÜ Kampüs Portalı</h1>
-        <p>Sisteme giriş yapmak veya yeni kayıt oluşturmak için lütfen işleminizi seçin.</p>
+        <p>Sisteme giriş yapmak veya kayıt olmak için işlemi seçin.</p>
         
         <div class="btn-container">
-            <!-- YENİ EKLENEN GİRİŞ BUTONU -->
-            <a href="/campus/login.html" class="btn btn-login">
-                <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.09 15.59L11.5 17L16.5 12L11.5 7L10.09 8.41L12.67 11H3V13H12.67L10.09 15.59ZM19 3H5C3.89 3 3 3.9 3 5V9H5V5H19V19H5V15H3V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z"/>
-                </svg>
+            <a href="profil.html" class="btn btn-profile" id="btnProfile">
+                <svg class="btn-icon" viewBox="0 0 24 24"><path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/></svg>
+                Profilime Git
+            </a>
+
+            <a href="login.html" class="btn btn-login" id="btnLogin">
+                <svg class="btn-icon" viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17L16.5 12L11.5 7L10.09 8.41L12.67 11H3V13H12.67L10.09 15.59ZM19 3H5C3.89 3 3 3.9 3 5V9H5V5H19V19H5V15H3V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z"/></svg>
                 Sisteme Giriş Yap
             </a>
 
-            <!-- Araya Şık Bir Çizgi Çektik -->
-            <div class="divider">
-                <span>veya kayıt ol</span>
-            </div>
+            <div class="divider"><span>veya yeni kayıt ol</span></div>
 
-            <a href="/campus/ogrenci.html" class="btn btn-student">
-                <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9Z"/>
-                </svg>
+            <a href="ogrenci.html" class="btn btn-student">
+                <svg class="btn-icon" viewBox="0 0 24 24"><path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9Z"/></svg>
                 Öğrenci Kaydı
             </a>
             
-            <a href="/campus/gorevli.html" class="btn btn-staff">
-                <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM11 7V9H17V7H11ZM11 11V13H17V11H11ZM11 15V17H17V15H11ZM7 7H9V9H7V7ZM7 11H9V13H7V11ZM7 15H9V17H7V15Z"/>
-                </svg>
+            <a href="gorevli.html" class="btn btn-staff">
+                <svg class="btn-icon" viewBox="0 0 24 24"><path d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM11 7V9H17V7H11ZM11 11V13H17V11H11ZM11 15V17H17V15H11ZM7 7H9V9H7V7ZM7 11H9V13H7V11ZM7 15H9V17H7V15Z"/></svg>
                 Görevli Kaydı
             </a>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('jwt_token');
+            if(token) {
+                document.getElementById('btnProfile').style.display = 'flex';
+                document.getElementById('btnLogin').style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

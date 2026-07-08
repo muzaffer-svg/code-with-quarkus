@@ -2,98 +2,67 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Sisteme Giriş</title>
+    <title>Sisteme Giriş - AYBÜ</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; 
-        }
-        .login-card { 
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 40px; border-radius: 16px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
-            width: 100%; max-width: 350px; text-align: center; 
-        }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .login-card { background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 100%; max-width: 350px; text-align: center; }
         h2 { color: #1e3c72; margin-top: 0; font-weight: 700; }
         .form-group { margin-bottom: 16px; text-align: left; }
         .form-group label { display: block; font-size: 13px; color: #34495e; margin-bottom: 6px; font-weight: 600; }
-        input { 
-            width: 100%; padding: 12px; border: 1px solid #dfe6e9; 
-            border-radius: 8px; box-sizing: border-box; font-size: 14px; 
-        }
-        input:focus { outline: none; border-color: #3498db; }
-        button { 
-            width: 100%; padding: 14px; background: #3498db; color: white; 
-            border: none; border-radius: 8px; font-size: 16px; font-weight: 600; 
-            cursor: pointer; margin-top: 10px; transition: 0.3s;
-        }
-        button:hover { background: #2980b9; }
+        input { width: 100%; padding: 12px; border: 1px solid #dfe6e9; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
+        button { width: 100%; padding: 14px; background: #3498db; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
         .error-message { color: #e74c3c; font-size: 13px; margin-top: 10px; display: none; }
+        .back-link { display: inline-block; margin-top: 20px; font-size: 13px; color: #5a6a85; text-decoration: none; }
     </style>
 </head>
 <body>
-    
     <div class="login-card">
         <h2>Öğrenci Girişi</h2>
         
         <form id="loginForm">
             <div class="form-group">
-                <label for="name">Kayıtlı Adınız Soyadınız</label>
-                <input type="text" id="name" placeholder="Örn: Ahmet Yılmaz" required>
+                <label>Sisteme Kayıtlı Adınız (Sadece Ad)</label>
+                <input type="text" id="name" placeholder="Örn: Muzaffer" required>
             </div>
             <div class="form-group">
-                <label for="studentId">Öğrenci Numarası</label>
-                <input type="number" id="studentId" placeholder="Örn: 2024001" required>
+                <label>Öğrenci Numarası</label>
+                <input type="text" id="studentNumber" placeholder="Örn: 2024001" required>
             </div>
             
             <button type="submit">Giriş Yap</button>
-            <div id="errorText" class="error-message">İsim veya öğrenci numarası eşleşmedi! Lütfen kontrol edin.</div>
+            <div id="errorText" class="error-message">İsim veya öğrenci numarası eşleşmedi!</div>
         </form>
+        
+        <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
     </div>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
             const errorText = document.getElementById('errorText');
-            const button = e.target.querySelector('button');
-            const originalText = button.innerText;
-            
             errorText.style.display = 'none'; 
-            button.innerText = 'Kontrol ediliyor...';
-            button.disabled = true;
             
-            // Kullanıcının girdiği bilgileri al (şifre yerine isim var)
             const loginData = {
-                name: document.getElementById('name').value,
-                studentId: parseInt(document.getElementById('studentId').value)
+                name: document.getElementById('name').value.trim(),
+                studentNumber: document.getElementById('studentNumber').value.trim()
             };
 
-            // Backend'e POST isteği gönder (Eğer API yolun /api/students ise sondaki 's' harfini düzeltmeyi unutma)
-            fetch('/api/studentss/login', {
+            fetch('http://localhost:8080/api/studentss/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(loginData)
             })
             .then(response => {
-                if(response.ok) {
-                    return response.json(); 
-                } else {
-                    throw new Error("Yetkisiz"); 
-                }
+                if(response.ok) return response.text(); 
+                throw new Error("Yetkisiz"); 
             })
-            .then(data => {
-                alert("Başarıyla giriş yaptın, " + data.name + "!");
-                // İleride buraya yönlendirme kodu ekleyebilirsin
-                // window.location.href = "/campus/panel.html";
+            .then(token => {
+                localStorage.setItem('jwt_token', token);
+                window.location.href = "profil.html";
             })
-            .catch(error => {
+            .catch(() => {
                 errorText.style.display = 'block';
-            })
-            .finally(() => {
-                button.innerText = originalText;
-                button.disabled = false;
             });
         });
     </script>
