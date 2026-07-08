@@ -46,6 +46,7 @@ public class CampusStudentResource {
         return Response.status(Response.Status.CREATED).entity(student).build();
     }
 
+<<<<<<< HEAD
    @POST
     @Path("/login")
     @PermitAll
@@ -65,10 +66,20 @@ public class CampusStudentResource {
                               .sign(); 
 
             return Response.ok(token).build();
+=======
+    @POST
+    @Path("/login")
+    public Response loginStudent(Student loginData) {
+        Student foundStudent = Student.find("name = ?1 and studentId = ?2", loginData.name, loginData.studentId).firstResult();
+
+        if (foundStudent != null) {
+            return Response.ok(foundStudent).build();
+>>>>>>> d20293bfd370ea76ad4d33dbb6a611d5e583b49c
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).entity("İsim veya öğrenci numarası hatalı!").build();
         }
     }
+<<<<<<< HEAD
 
     
     @GET
@@ -84,4 +95,6 @@ public class CampusStudentResource {
         
         return Response.ok(mesaj).build();
     }
+=======
+>>>>>>> d20293bfd370ea76ad4d33dbb6a611d5e583b49c
 }
